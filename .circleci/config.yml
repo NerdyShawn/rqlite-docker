@@ -17,6 +17,7 @@ jobs:
       # build and push Docker image
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
-          docker buildx build . --platform linux/arm64,linux/amd64,linux/arm/v7
+          docker buildx create  --name arm64 --platform linux/arm64,linux/amd64
+          docker buildx build . --platform linux/arm64,linux/amd64
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-          docker push CircleCI-Public/circleci-demo-docker:$TAG
+          docker push nerdyshawn/rqlite-docker:$TAG
